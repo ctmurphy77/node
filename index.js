@@ -1,18 +1,23 @@
-// content of index.js
-const http = require('http')
-const port = 3000
+// index.js
+const path = require('path')
+const express = require('express')
+const exphbs = require('express-handlebars')
 
-const requestHandler = (request, response) => {
-  console.log(request.url)
-  response.end('Hello Node.js Server!')
-}
+const app = express()
 
-const server = http.createServer(requestHandler)
+app.engine('.hbs', exphbs({
+  defaultLayout: 'main',
+  extname: '.hbs',
+  layoutsDir: path.join(__dirname, 'views/layouts')
+}))
+app.set('view engine', '.hbs')
+app.set('views', path.join(__dirname, 'views'))
 
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err)
-  }
-
-  console.log(`server is listening on ${port}`)
+app.get('/', (request, response) => {
+  response.render('home', {
+    name: 'Chris'
+  })
 })
+
+
+app.listen(3000);
