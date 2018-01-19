@@ -2,6 +2,7 @@
 const path = require('path')
 const express = require('express')
 const exphbs = require('express-handlebars')
+const fortune = require('./lib/fortune.js')
 
 // Express boilerplate
 const app = express()
@@ -10,11 +11,11 @@ app.engine('.hbs', exphbs({
   extname: '.hbs',
   layoutsDir: path.join(__dirname, 'views/layouts')
 }))
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 // End Express boilerplate
 
-app.use(express.static(__dirname + '/public'));
 
 //test
 app.use(function(req, res, next){
