@@ -17,6 +17,7 @@
          var assert = chai.assert;
        </script>
        <script src="/qa/tests-global.js"></script>
+       <!-- pageTestScript is set in index.js and passed here depending on the page being rendered/tested -->
       {{#if pageTestScript}}
         <script src="{{pageTestScript}}"></script>
       {{/if}}

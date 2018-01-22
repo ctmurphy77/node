@@ -1,6 +1,6 @@
+// CHAI ASSERT GLOBAL PAGE TEST
 suite('Global Tests', function(){
- test('page has a valid title', function(){
- assert(document.title && document.title.match(/\S/) &&
- document.title.toUpperCase() !== 'TODO');
- });
+   test('page has a valid title', function(){
+     assert(document.title && document.title.match(/\S/) && document.title.toUpperCase() !== 'TODO');
+   });
 });
