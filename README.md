@@ -1,4 +1,4 @@
 # node
 Simple project to experiment with learning node.js
 
-// TODO continue on page 47 @ Logic Testing
+Based on the book: Web Development with Node & Express by Ethan Brown

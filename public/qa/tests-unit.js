@@ -1,6 +1,6 @@
 // CHAI ASSERT UNIT TESTING FOR PAGE LOGIC
 
-var fortune = require('../lib/fortune.js');
+var fortune = require('../../lib/fortune.js');
 var expect = require('chai').expect;
 
 suite('Fortune cookie tests', function(){
