@@ -16,17 +16,15 @@ app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 // End Express boilerplate
 
-
-//test
+// set locals properties
 app.use(function(req, res, next){
- res.locals.showTests = app.get('env') !== 'production' &&
- req.query.test === '1';
+ res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
  next();
 });
 
 app.get('/', (request, response) => {
   response.render('home', {
-    name: 'Chris'
+    user: 'Chris'
   })
 })
 
