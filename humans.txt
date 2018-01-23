@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  Chris Murphy - I made this - @_christomurphy
+
+# THANKS
+
+    Ethan Brown
+
+# TECHNOLOGY COLOPHON
+
+    CSS3, HTML5
+    Nodejs, jQuery, Normalize.css
+    mocha, chai, grunt, nodemon
