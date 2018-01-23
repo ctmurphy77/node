@@ -9,7 +9,14 @@ const app = express()
 app.engine('.hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
-  layoutsDir: path.join(__dirname, 'views/layouts')
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+  helpers: {
+    section: function(name, options){
+      if(!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return null;
+    }
+  }
 }))
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', '.hbs')
@@ -33,6 +40,10 @@ app.get('/about', function(req, res) {
    fortune: fortune.getFortune(),
    pageTestScript: '/qa/tests-about.js'
  } );
+});
+
+app.get('/nursery-rhyme', function(req, res) {
+ res.render('nursery-rhyme');
 });
 
 // 404 catch-all handler (middleware)
