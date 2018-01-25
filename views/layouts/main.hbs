@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Meadowlark Travel</title>
+        <title>Grey Eminence</title>
         <meta name="description" content="Practice node site">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -18,9 +18,18 @@
         {{/if}}
         {{{_sections.head}}}
         <script src="vendor/jquery-3.2.1.min.js"></script>
+        <script src="js/main.js"></script>
         {{{_sections.jquery}}}
     </head>
     <body>
+      <div class="topnav" id="myTopnav">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#play" style="float:right; color: gold">PLAY</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+      </div>
         {{{body}}}
         {{#if showTests}}
            <div id="mocha"></div>
