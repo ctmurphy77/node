@@ -29,6 +29,13 @@ app.use(function(req, res, next){
  next();
 });
 
+//COOKIE CODE
+var credentials = require('./credentials.js');
+
+app.use(require('cookie-parser')(credentials.cookieSecret));
+
+
+//FORM HANDLING CODE
 app.use(require('body-parser')());
 
 app.get('/newsletter', function(req, res){
