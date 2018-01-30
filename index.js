@@ -2,7 +2,9 @@
 const path = require('path')
 const express = require('express')
 const exphbs = require('express-handlebars')
-const fortune = require('./lib/fortune.js')
+
+//set env params
+require('dotenv').config({path: './lib/config.env'})
 
 // Express boilerplate
 const app = express()
@@ -18,6 +20,7 @@ app.engine('.hbs', exphbs({
     }
   }
 }))
+
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
@@ -30,24 +33,32 @@ app.use(function(req, res, next){
 });
 
 //COOKIE CODE
-app.use(require('cookie-parser')());
+var session = require('client-sessions');
 
+app.use(session({
+  cookieName: 'session',
+  secret: process.env.COOKIE_SECRET,
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
 
 //FORM HANDLING CODE
 app.use(require('body-parser')());
 
+//ROUTING
 app.use(require('./lib/routes.js'));
 
-// 404 catch-all handler (middleware)
-app.use(function(req, res, next){
- res.status(404);
- res.render('404');
-});
 // 500 error handler (middleware)
 app.use(function(err, req, res, next){
  console.error(err.stack);
  res.status(500);
  res.render('500');
+});
+
+// 404 catch-all handler (middleware)
+app.use(function(req, res, next){
+ res.status(404);
+ res.render('404');
 });
 
 app.listen(3000);
