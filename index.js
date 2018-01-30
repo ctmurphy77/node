@@ -30,47 +30,13 @@ app.use(function(req, res, next){
 });
 
 //COOKIE CODE
-var credentials = require('./credentials.js');
-
-app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('cookie-parser')());
 
 
 //FORM HANDLING CODE
 app.use(require('body-parser')());
 
-app.get('/newsletter', function(req, res){
-    res.render('newsletter', { csrf: 'CSRF token goes here' });
-});
-
-app.get('/thank-you', function(req, res){
-    res.render('thank-you');
-});
-
-app.get('/', (request, response) => {
-  response.render('home', {
-    user: 'Chris'
-  })
-})
-
-app.get('/about', function(req, res) {
- res.render('about', {
-   fortune: fortune.getFortune(),
-   pageTestScript: '/qa/tests-about.js'
- } );
-});
-
-app.get('/nursery-rhyme', function(req, res) {
- res.render('nursery-rhyme');
-});
-
-
-app.post('/process', function(req, res){
-  console.log('Form (from querystring): ' + req.query.form);
-  console.log('CSRF token (from hidden form field): ' + req.body._csrf);
-  console.log('Name (from visible form field): ' + req.body.name);
-  console.log('Email (from visible form field): ' + req.body.email);
-  res.redirect(303, '/thank-you');
-});
+app.use(require('./lib/routes.js'));
 
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
