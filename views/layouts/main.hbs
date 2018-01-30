@@ -12,12 +12,14 @@
         <!-- Place favicon.ico in the root directory -->
 
         <link rel="stylesheet" href="vendor/normalize.css">
+        <link rel="stylesheet" href="vendor/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         {{#if showTests}}
         <link rel="stylesheet" href="/vendor/mocha.css">
         {{/if}}
         {{{_sections.head}}}
         <script src="vendor/jquery-3.2.1.min.js"></script>
+        <script src="vendor/bootstrap.bundle.min.js"></script>
         <script src="js/main.js"></script>
         {{{_sections.jquery}}}
     </head>
@@ -30,6 +32,13 @@
         <a href="#play" style="float:right; color: gold">PLAY</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
       </div>
+      {{#if flash}}
+        <div class="alert alert-dismissible alert-{{flash.type}}">
+        <button type="button" class="close"
+        data-dismiss="alert" aria-hidden="true">&times;<button>
+        <strong>{{flash.intro}}</strong> {{{flash.message}}}
+      </div>
+      {{/if}}
         {{{body}}}
         {{#if showTests}}
            <div id="mocha"></div>

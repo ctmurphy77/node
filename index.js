@@ -29,15 +29,13 @@ app.use(function(req, res, next){
  next();
 });
 
-//COOKIE CODE
+//COOKIE & SESSION CODE
 var credentials = require('./credentials.js');
 
 app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('express-session')());
 
-
-//FORM HANDLING CODE
-app.use(require('body-parser')());
-
+//ROUTING
 app.get('/newsletter', function(req, res){
     res.render('newsletter', { csrf: 'CSRF token goes here' });
 });
@@ -63,6 +61,8 @@ app.get('/nursery-rhyme', function(req, res) {
  res.render('nursery-rhyme');
 });
 
+//FORM HANDLING CODE
+app.use(require('body-parser')());
 
 app.post('/process', function(req, res){
   console.log('Form (from querystring): ' + req.query.form);
