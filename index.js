@@ -2,6 +2,7 @@
 const path = require('path')
 const express = require('express')
 const exphbs = require('express-handlebars')
+const http = require('http')
 
 //set env params
 require('dotenv').config({path: './lib/config.env'})
@@ -49,6 +50,11 @@ switch(app.get('env')){
 //COOKIE CODE
 var session = require('client-sessions');
 
+app.use(function(req,res,next){
+  var cluster = require('cluster');
+  if(cluster.isWorker) console.log('Worker %d received request', cluster.worker.id);
+});
+
 app.use(session({
   cookieName: 'session',
   secret: process.env.COOKIE_SECRET,
@@ -75,4 +81,19 @@ app.use(function(req, res, next){
  res.render('404');
 });
 
-app.listen(3000);
+function startServer() {
+ http.createServer(app).listen(process.env.PORT, function(){
+ console.log( 'Express started in ' + app.get('env') +
+ ' mode on http://localhost:' + process.env.PORT +
+ '; press Ctrl-C to terminate.' );
+ });
+}
+
+if(require.main === module){
+ // application run directly; start app server
+ startServer();
+} else {
+ // application imported as a module via "require": export function
+ // to create server
+ module.exports = startServer;
+}
