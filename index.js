@@ -86,6 +86,31 @@ switch(app.get('env')){
         break;
 }
 
+//DB TEST CODE
+var db = require('./lib/mongo.js')
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    // we're connected!
+    console.log('connection successful');
+    var Blog = require('./models/Blog.js')
+    Blog.remove({ post: 'lots of words' }, function (err) {
+      if (err) return handleError(err);
+      // removed!
+      else
+        console.log('removed succesfully')
+    });
+    Blog.find(function(err, blogs){
+        var Test = blogs.length + 1;
+        var NewBlog = new Blog({ author: 'ctm', category: 'test', post: 'blog number' + Test, tags: ['a','b'] });
+        NewBlog.save(function (err, first) {
+        if (err) return console.error(err);
+        });
+        for(var i = 0; i < blogs.length;i++){
+          blogs[i].posted();
+        }
+    });
+});
+
 //COOKIE CODE
 var session = require('client-sessions');
 
