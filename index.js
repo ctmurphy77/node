@@ -103,10 +103,10 @@ db.once('open', function() {
         var Test = blogs.length + 1;
         var NewBlog = new Blog({ author: 'ctm', category: 'test', post: 'blog number' + Test, tags: ['a','b'] });
         NewBlog.save(function (err, first) {
-            if (err) return console.error(err);
+        if (err) return console.error(err);
         });
         for(var i = 0; i < blogs.length;i++){
-            blogs[i].posted();
+          blogs[i].posted();
         }
     });
 });
