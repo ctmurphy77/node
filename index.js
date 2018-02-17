@@ -2,6 +2,7 @@
 const path = require('path')
 const express = require('express')
 const exphbs = require('express-handlebars')
+const http = require('http')
 
 //set env params
 require('dotenv').config({path: './lib/config.env'})
@@ -141,7 +142,7 @@ app.use(function(req, res, next){
 });
 
 function startServer() {
-    app.listen(process.env.PORT, function(){
+    http.createServer(app).listen(process.env.PORT, function(){
         console.log( 'Express started in ' + app.get('env') +
         ' mode on http://localhost:' + process.env.PORT +
         '; press Ctrl-C to terminate.' );

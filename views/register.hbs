@@ -1,0 +1,124 @@
+{{#section 'head'}}
+<title>Sign Up!</title>
+{{/section}}
+{{#section 'jquery'}}
+<script src="vendor/jquery.validate.min.js"></script>
+<style>
+    #pswd_info {
+        position:absolute;
+        bottom:-75px;
+        bottom: -115px\9; /* IE Specific */
+        right:55px;
+        width:250px;
+        padding:15px;
+        background:#fefefe;
+        font-size:.875em;
+        border-radius:5px;
+        box-shadow:0 1px 3px #ccc;
+        border:1px solid #ddd;
+    }
+
+    #pswd_info h4 {
+        margin:0 0 10px 0;
+        padding:0;
+        font-weight:normal;
+    }
+
+    #pswd_info::before {
+        content: "\25B2";
+        position:absolute;
+        top:-12px;
+        left:45%;
+        font-size:14px;
+        line-height:14px;
+        color:#ddd;
+        text-shadow:none;
+        display:block;
+    }
+
+    .invalid {
+        background:url(../images/invalid.png) no-repeat 0 50%;
+        padding-left:22px;
+        line-height:24px;
+        color:#ec3f41;
+    }
+    .valid {
+        background:url(../images/valid.png) no-repeat 0 50%;
+        padding-left:22px;
+        line-height:24px;
+        color:#3a7d34;
+    }
+    .error{
+         display:none;
+         color:red;
+    }
+</style>
+
+{{/section}}
+<h2>Sign up for our newsletter to receive news and specials!</h2>
+<form class="form-horizontal" role="form">
+  <input type="hidden" name="_csrf" value="{{csrf}}">
+  <div class="form-group">
+    <label for="fieldEmail" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-4">
+      <input type="email" class="form-control" required id="email" name="email" placeholder="e.g. alexsmith@gmail.com">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fieldName" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="name" name="username" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fieldName" class="col-sm-2 control-label"> <i class="fa fa-lock"></i>&nbsp;Password</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="register-password" name="password" >
+      <span class="error" id="error-length"><i class="fa fa-exclamation"></i>&nbsp;Password must be at least 5 characters(and a number)!</span>
+      <span class="error" id="error-num"><i class="fas fa-exclamation"></i>&nbsp;Password must contain number!</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fieldName" class="col-sm-2 control-label">Confirm Password</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="register-pass-confirm" name="confirm">
+      <span class="error" id="error-match"><i class="fa fa-exclamation"></i>&nbsp;Passwords must match!</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+      <button id="postit" type="" class="btn btn-success">Register</button>
+    </div>
+  </div>
+</form>
+
+<script>
+    $( "#postit" ).click(function() {
+        check = 0;
+
+        $("#error-length").hide();
+        $("#error-num").hide();
+        $("#error-match").hide();
+
+        console.log('page test');
+        // The two password inputs
+        var password = $("#register-password").val();
+        var confirmPassword = $("#register-pass-confirm").val();
+
+        if(password.length < 5){
+            $("#error-length").show();
+        }
+        else{
+            if(/\d/.test(password)){
+                if (password != confirmPassword ) {
+                    $("#error-match").show();
+                } else {
+                    $.post( "/test" );
+                }
+            }
+            else{
+                $("#error-num").show();
+            }
+        }
+    });
+</script>

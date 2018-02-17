@@ -36,3 +36,9 @@ jspm_packages
 
 # credential file
 *.env
+
+# ssl certs
+*.csr
+*.key
+*.crt
+*.rnd
